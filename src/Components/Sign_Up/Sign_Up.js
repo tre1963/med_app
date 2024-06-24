@@ -1,143 +1,119 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./Sign_Up.css";
+import React, { useState } from 'react';
+import './Sign_Up.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 const Sign_Up = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        phone: "",
-        email: "",
-        password: ""
-    });
-    
-    const [errors, setErrors] = useState({});
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [showError, setShowError] = useState('');
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const validate = () => {
-        let tempErrors = {};
-        let isValid = true;
-
-        if (!formData.name.trim()) {
-            tempErrors.name = "Name is required.";
-            isValid = false;
-        }
-
-        if (!formData.phone.trim()) {
-            tempErrors.phone = "Phone number is required.";
-            isValid = false;
-        } else if (!/^\d{10}$/.test(formData.phone)) {
-            tempErrors.phone = "Phone number must be exactly 10 digits.";
-            isValid = false;
-        }
-
-        if (!formData.email.trim()) {
-            tempErrors.email = "Email is required.";
-            isValid = false;
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            tempErrors.email = "Email is invalid.";
-            isValid = false;
-        }
-
-        if (!formData.password.trim()) {
-            tempErrors.password = "Password is required.";
-            isValid = false;
-        } else if (formData.password.length < 6) {
-            tempErrors.password = "Password must be at least 6 characters.";
-            isValid = false;
-        }
-
-        setErrors(tempErrors);
-        return isValid;
-    };
-
-    const handleSubmit = (e) => {
+    const register = async (e) => {
         e.preventDefault();
-        if (validate()) {
-            console.log("Form submitted successfully", formData);
-            // Perform your form submission logic here
+        try {
+            const response = await fetch(`${API_URL}/api/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    phone: phone,
+                }),
+            });
+            const json = await response.json();
+            if (response.ok) {
+                sessionStorage.setItem('auth-token', json.authtoken);
+                sessionStorage.setItem('name', name);
+                sessionStorage.setItem('phone', phone);
+                sessionStorage.setItem('email', email);
+                navigate('/'); // Redirect to home page
+                window.location.reload();
+            } else {
+                setShowError(json.error || 'Registration failed');
+            }
+        } catch (error) {
+            setShowError('Registration failed. Please try again later.');
+            console.error('Registration error:', error);
         }
     };
 
     return (
         <div className="container">
             <div className="signup-grid">
-                <div className="signup-text">
-                    <h1>Sign Up</h1>
-                </div>
-                <div className="signup-text1">
-                    Already a member? <span><Link to="/login" style={{ color: "#2190FF" }}>Login</Link></span>
-                </div>
                 <div className="signup-form">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={register}>
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
-                            <input 
-                                type="text" 
-                                name="name" 
-                                id="name" 
-                                required 
-                                className="form-control" 
-                                placeholder="Enter your name" 
-                                aria-describedby="helpId" 
-                                value={formData.name}
-                                onChange={handleChange}
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter your name"
+                                aria-describedby="helpId"
+                                required
                             />
-                            {errors.name && <p className="error">{errors.name}</p>}
                         </div>
                         <div className="form-group">
                             <label htmlFor="phone">Phone</label>
-                            <input 
-                                type="tel" 
-                                name="phone" 
-                                id="phone" 
-                                required 
-                                className="form-control" 
-                                placeholder="Enter your phone number" 
-                                aria-describedby="helpId" 
-                                value={formData.phone}
-                                onChange={handleChange}
+                            <input
+                                type="tel"
+                                name="phone"
+                                id="phone"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                aria-describedby="helpId"
+                                required
                             />
-                            {errors.phone && <p className="error">{errors.phone}</p>}
                         </div>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                id="email" 
-                                required 
-                                className="form-control" 
-                                placeholder="Enter your email" 
-                                aria-describedby="helpId" 
-                                value={formData.email}
-                                onChange={handleChange}
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter your email"
+                                aria-describedby="helpId"
+                                required
                             />
-                            {errors.email && <p className="error">{errors.email}</p>}
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                id="password" 
-                                required 
-                                className="form-control" 
-                                placeholder="Enter your password" 
-                                aria-describedby="helpId" 
-                                value={formData.password}
-                                onChange={handleChange}
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter your password"
+                                aria-describedby="helpId"
+                                required
                             />
-                            {errors.password && <p className="error">{errors.password}</p>}
                         </div>
                         <div className="btn-group">
-                            <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">Submit</button>
-                            <button type="reset" className="btn btn-danger mb-2 waves-effect waves-light" onClick={() => setFormData({ name: "", phone: "", email: "", password: "" })}>Reset</button>
+                            <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
+                                Submit
+                            </button>
+                            <button type="reset" className="btn btn-danger mb-2 waves-effect waves-light">
+                                Reset
+                            </button>
                         </div>
                     </form>
+                    {showError && <div className="error-message">{showError}</div>}
                 </div>
             </div>
         </div>

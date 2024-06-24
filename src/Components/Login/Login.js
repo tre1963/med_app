@@ -54,7 +54,7 @@ const Login = () => {
                     <h2>Login</h2>
                 </div>
                 <div className="login-text">
-                    Are you a new member? <span><Link to="/signup" style={{ color: "#2190FF" }}>Sign Up Here</Link></span>
+                    Are you a new member? <span><Link to="/Sign_Up" style={{ color: "#2190FF" }}>Sign Up Here</Link></span>
                 </div>
                 <br />
                 <div className="login-form">
