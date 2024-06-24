@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
-import './Components/Navbar/Navbar.css';
 import Landing_Page from './Components/LandingPage/Landing_Page';
-function App() {
+import Sign_Up from './Components/Sign_Up/Sign_Up';
+import Login from './Components/Login/Login';
 
+function App() {
   return (
     <div className="App">
-        <BrowserRouter>
-          <Navbar/>
-              <Routes>
-              <Route path="/" element={<Landing_Page />} />
-              </Routes>
-            
-        </BrowserRouter>
-       
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Landing_Page />} />
+          <Route path="/sign_up" element={<Sign_Up />} /> {/* Example path for Sign Up */}
+          <Route path="/login" element={<Login />} /> {/* Example path for Login */}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
