@@ -18,6 +18,8 @@ function App() {
           <Route path="/Login" element={<Login />} /> {/* Example path for Login */}
           <Route path="/instant-consultation" element={<InstantConsultation />} /> {/* Example path for Login */}
           <Route path="/booking-consultation" element={<BookingConsultation />} /> {/* Example path for Login */}
+         
+
 
         </Routes>
       </BrowserRouter>
