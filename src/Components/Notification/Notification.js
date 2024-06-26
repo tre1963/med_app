@@ -11,7 +11,7 @@ const Notification = ({ children }) => {
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-    const storedAppointmentData = JSON.parse(localStorage.getItem(storedDoctorData?.name));
+    const storedAppointmentData = storedDoctorData ? JSON.parse(localStorage.getItem(storedDoctorData.name)) : null;
 
     if (storedUsername) {
       setIsLoggedIn(true);
@@ -32,16 +32,14 @@ const Notification = ({ children }) => {
       <Navbar />
       {children}
       {isLoggedIn && appointmentData && (
-        <div className="appointment-card">
-          <div className="appointment-card__content">
-            <h3 className="appointment-card__title">Appointment Details</h3>
-            <p className="appointment-card__message">
-              <strong>User:</strong> {username.split('@')[0]} <br />
-              <strong>Doctor:</strong> {doctorData?.name} <br />
-              <strong>Appointment Date:</strong> {appointmentData.appointmentDate} <br />
-              <strong>Time Slot:</strong> {appointmentData.timeSlot}
-            </p>
-          </div>
+        <div className="notification-popup">
+          <h3>Appointment Details</h3>
+          <p>
+            <strong>User:</strong> {username.split('@')[0]} <br />
+            <strong>Doctor:</strong> {doctorData?.name} <br />
+            <strong>Appointment Date:</strong> {appointmentData.appointmentDate} <br />
+            <strong>Time Slot:</strong> {appointmentData.timeSlot}
+          </p>
         </div>
       )}
     </div>

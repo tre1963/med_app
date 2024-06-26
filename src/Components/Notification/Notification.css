@@ -1,34 +1,27 @@
-/* Appointment Card styles */
+/* Notification.css */
+
 .appointment-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 20px auto;
-  max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-}
-
-.appointment-card__content {
-  text-align: left;
-}
-
-.appointment-card__title {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-.appointment-card__message {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.appointment-card__message strong {
-  color: #333;
-}
-
-/* Children content styles */
-.children-content {
-  margin: 20px;
-}
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .appointment-card__content {
+    text-align: left;
+  }
+  
+  .appointment-card__title {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .appointment-card__message {
+    margin: 0;
+  }
+  

@@ -13,7 +13,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Notification>
-          <Navbar />
           <Routes>
             <Route path="/" element={<Landing_Page />} />
             <Route path="/Landing_Page" element={<Landing_Page />} />
