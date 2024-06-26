@@ -27,7 +27,7 @@ const Navbar = () => {
                     <Link to="/LandingPage">Home</Link>
                 </li>
                 <li className="link">
-                    <Link to="/Appointments">Appointments</Link>
+                    <Link to="/appointment-form">Appointments</Link>
                 </li>
                  <li className="link">
                     <Link to="/instant-consultation">Booking Consultation </Link>
