@@ -8,7 +8,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         sessionStorage.clear();
-        navigate("/login"); // Redirect to login page after logout
+        navigate("/login");
     };
 
     return (
@@ -16,7 +16,6 @@ const Navbar = () => {
             <div className="nav__logo">
                 <Link to="/">
                     StayHealthy
-                    {/* SVG icon */}
                 </Link>
                 <span>.</span>
             </div>
@@ -27,7 +26,6 @@ const Navbar = () => {
                 <li className="link">
                     <Link to="/LandingPage">Home</Link>
                 </li>
-                {/* Other navbar links */}
                 <li className="link">
                     <Link to="/Appointments">Appointments</Link>
                 </li>
@@ -37,19 +35,16 @@ const Navbar = () => {
                 <li className="link">
                     <Link to="/Reviews">Reviews</Link>
                 </li>
-                {/* Display user's name and logout button if logged in */}
-                {userName &&
+                {userName ? (
                     <>
                         <li className="link">
-                            <span>Welcome, {userName.split('@')[0]}</span> {/* Extracting name from email */}
+                            <span>Welcome, {userName}</span>
                         </li>
                         <li className="link">
                             <button className="btn1" onClick={handleLogout}>Logout</button>
                         </li>
                     </>
-                }
-                {/* Display sign up and login buttons if not logged in */}
-                {!userName &&
+                ) : (
                     <>
                         <li className="link">
                             <Link to="/Sign_Up">
@@ -62,7 +57,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                     </>
-                }
+                )}
             </ul>
         </nav>
     );
