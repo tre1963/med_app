@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Landing_Page />} />
           <Route path="/sign_up" element={<Sign_Up />} /> {/* Example path for Sign Up */}
           <Route path="/login" element={<Login />} /> {/* Example path for Login */}
-           <Route path="/InstantConsoltation" element={<InstantConsultation />} /> {/* Example path for Login */}
+          <Route path="/instant-consultation" element={<InstantConsultation />} /> {/* Example path for Login */}
         </Routes>
       </BrowserRouter>
     </div>
