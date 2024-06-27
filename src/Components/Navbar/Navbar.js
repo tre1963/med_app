@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ProfileCard from './ProfileCard/ProfileCard'; // Import the ProfileCard component
+import ProfileCard from './ProfileCard/ProfileCard';
 import './Navbar.css';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const userName = sessionStorage.getItem("name");
-    const userEmail = sessionStorage.getItem("email"); // Assuming email is stored in sessionStorage
-    const userAvatar = 'https://via.placeholder.com/50'; // Replace with actual avatar URL if available
 
     const handleLogout = () => {
         sessionStorage.clear();
@@ -38,8 +36,8 @@ const Navbar = () => {
                 <li className="link">
                     <Link to="/appointment-form">Appointments</Link>
                 </li>
-                 <li className="link">
-                    <Link to="/booking-consultation">Booking Consultation </Link>
+                <li className="link">
+                    <Link to="/booking-consultation">Booking Consultation</Link>
                 </li>
                 <li className="link">
                     <Link to="/HealthBlog">Health Blog</Link>
@@ -54,7 +52,7 @@ const Navbar = () => {
                         </li>
                         {dropdownOpen && (
                             <li className="navbar-dropdown">
-                                <ProfileCard user={{ name: userName, email: userEmail, avatar: userAvatar }} />
+                                <ProfileCard />
                             </li>
                         )}
                         <li className="link">
