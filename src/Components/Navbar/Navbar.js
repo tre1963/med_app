@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ProfileCard from './ProfileCard/ProfileCard'; // Import the ProfileCard component
 import './Navbar.css';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const userName = sessionStorage.getItem("name");
+    const userEmail = sessionStorage.getItem("email"); // Assuming email is stored in sessionStorage
+    const userAvatar = 'https://via.placeholder.com/50'; // Replace with actual avatar URL if available
 
     const handleLogout = () => {
         sessionStorage.clear();
         navigate("/login");
+    };
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
     };
 
     return (
@@ -32,7 +41,6 @@ const Navbar = () => {
                  <li className="link">
                     <Link to="/booking-consultation">Booking Consultation </Link>
                 </li>
-                
                 <li className="link">
                     <Link to="/HealthBlog">Health Blog</Link>
                 </li>
@@ -41,9 +49,14 @@ const Navbar = () => {
                 </li>
                 {userName ? (
                     <>
-                        <li className="link">
+                        <li className="link" onClick={toggleDropdown}>
                             <span>Welcome, {userName}</span>
                         </li>
+                        {dropdownOpen && (
+                            <li className="navbar-dropdown">
+                                <ProfileCard user={{ name: userName, email: userEmail, avatar: userAvatar }} />
+                            </li>
+                        )}
                         <li className="link">
                             <button className="btn1" onClick={handleLogout}>Logout</button>
                         </li>

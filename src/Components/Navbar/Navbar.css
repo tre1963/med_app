@@ -83,6 +83,21 @@ nav {
   .link a:hover {
     color: #3685fb;
   }
+  .navbar-dropdown {
+  position: absolute;
+  top: 40px; /* Adjust according to your layout */
+  right: 0;
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.nav__links .link {
+  position: relative; /* Ensure dropdown is positioned relative to its parent */
+}
   
   /* Media queries for mobile responsiveness */
   
