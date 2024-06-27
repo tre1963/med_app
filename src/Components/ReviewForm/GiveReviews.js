@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import './GiveReviews.css';
 
-function GiveReviews({ doctor }) {
+function GiveReviews({ doctor, onSubmit }) {
   const [showForm, setShowForm] = useState(true);
   const [submittedMessage, setSubmittedMessage] = useState('');
   const [showWarning, setShowWarning] = useState(false);
@@ -10,12 +11,12 @@ function GiveReviews({ doctor }) {
     rating: 0
   });
 
-  const handleButtonClick = () => {
-    setShowForm(true);
-  };
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleStarClick = (rating) => {
+    setFormData({ ...formData, rating });
   };
 
   const handleSubmit = (e) => {
@@ -25,34 +26,45 @@ function GiveReviews({ doctor }) {
 
     if (formData.name && formData.review && formData.rating > 0) {
       setShowWarning(false);
+      onSubmit();
     } else {
       setShowWarning(true);
     }
   };
 
   return (
-    <div>
+    <div className="give-reviews">
       <h2>Give Your Feedback for {doctor.name}</h2>
       {showForm && (
         <form onSubmit={handleSubmit}>
           {showWarning && <p className="warning">Please fill out all fields.</p>}
-          <div>
+          <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
           </div>
-          <div>
+          <div className="form-group">
             <label htmlFor="review">Review:</label>
             <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
           </div>
-          <div>
-            <label htmlFor="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" value={formData.rating} onChange={handleChange} min="1" max="5" />
+          <div className="form-group">
+            <label>Rating:</label>
+            <div className="stars">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={`star ${star <= formData.rating ? 'selected' : ''}`}
+                  onClick={() => handleStarClick(star)}
+                >
+                  &#9733;
+                </span>
+              ))}
+            </div>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="submit-button">Submit</button>
         </form>
       )}
       {submittedMessage && (
-        <div>
+        <div className="submitted-message">
           <h3>Submitted Message:</h3>
           <p>Name: {submittedMessage.name}</p>
           <p>Review: {submittedMessage.review}</p>

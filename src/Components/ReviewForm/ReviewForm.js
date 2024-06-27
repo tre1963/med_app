@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import GiveReviews from './GiveReviews';
+import './ReviewForm.css';  // Importing CSS file from the same folder
 
 const ReviewForm = () => {
   const doctors = [
@@ -9,13 +10,19 @@ const ReviewForm = () => {
   ];
 
   const [currentDoctor, setCurrentDoctor] = useState(null);
+  const [feedbackGiven, setFeedbackGiven] = useState({});
 
   const handleFeedbackClick = (doctor) => {
     setCurrentDoctor(doctor);
   };
 
+  const handleFeedbackSubmit = (doctorId) => {
+    setFeedbackGiven((prev) => ({ ...prev, [doctorId]: true }));
+    setCurrentDoctor(null);
+  };
+
   return (
-    <div>
+    <div className="review-form">
       <h1>Review Form</h1>
       <table>
         <thead>
@@ -34,16 +41,25 @@ const ReviewForm = () => {
               <td>{doctor.name}</td>
               <td>{doctor.specialty}</td>
               <td>
-                <button onClick={() => handleFeedbackClick(doctor)} style={{ color: 'blue' }}>
+                <button
+                  onClick={() => handleFeedbackClick(doctor)}
+                  disabled={!!feedbackGiven[doctor.id]}
+                  className="feedback-button"
+                >
                   Click Here
                 </button>
               </td>
-              <td>{currentDoctor && currentDoctor.id === doctor.id ? 'Feedback Provided' : 'No Feedback Yet'}</td>
+              <td>{feedbackGiven[doctor.id] ? 'Feedback Provided' : 'No Feedback Yet'}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      {currentDoctor && <GiveReviews doctor={currentDoctor} />}
+      {currentDoctor && (
+        <GiveReviews
+          doctor={currentDoctor}
+          onSubmit={() => handleFeedbackSubmit(currentDoctor.id)}
+        />
+      )}
     </div>
   );
 };

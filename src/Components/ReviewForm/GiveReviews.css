@@ -1,0 +1,65 @@
+.give-reviews {
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.give-reviews h2 {
+  margin-bottom: 10px;
+}
+
+.give-reviews .form-group {
+  margin-bottom: 15px;
+}
+
+.give-reviews label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.give-reviews input, .give-reviews textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.give-reviews .warning {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  color: white;
+  background-color: green;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submitted-message {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.stars {
+  display: flex;
+}
+
+.star {
+  font-size: 2em;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s;
+}
+
+.star.selected {
+  color: gold;
+}
+
+.star:hover,
+.star:hover ~ .star {
+  color: gold;
+}
