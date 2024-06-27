@@ -4,8 +4,8 @@ import { API_URL } from '../../config';
 import './ProfileCard.css';
 
 const ProfileCard = () => {
-  const [userDetails, setUserDetails] = useState({});
-  const [updatedDetails, setUpdatedDetails] = useState({});
+  const [userDetails, setUserDetails] = useState({ name: '', phone: '', email: '' });
+  const [updatedDetails, setUpdatedDetails] = useState({ name: '', phone: '', email: '' });
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
 
@@ -98,7 +98,7 @@ const ProfileCard = () => {
             <input
               type="text"
               name="name"
-              value={updatedDetails.name || ''}
+              value={updatedDetails.name}
               onChange={handleInputChange}
             />
           </label>
@@ -107,7 +107,7 @@ const ProfileCard = () => {
             <input
               type="email"
               name="email"
-              value={userDetails.email || ''}
+              value={updatedDetails.email}
               disabled
             />
           </label>
@@ -116,7 +116,7 @@ const ProfileCard = () => {
             <input
               type="text"
               name="phone"
-              value={updatedDetails.phone || ''}
+              value={updatedDetails.phone}
               onChange={handleInputChange}
             />
           </label>
@@ -127,8 +127,15 @@ const ProfileCard = () => {
           <img src={userDetails.avatar || 'https://via.placeholder.com/50'} alt={`${userDetails.name}'s avatar`} className="profile-avatar" />
           <div className="profile-info">
             <h2>{userDetails.name}</h2>
-            <p>{userDetails.email}</p>
-            <p>{userDetails.phone}</p>
+            <p>
+              <b>Email:</b>{' '}
+              <span className="hint" onClick={() => alert(`User's Email: ${userDetails.email}`)}>
+                {userDetails.email}
+              </span>
+            </p>
+            <p>
+              <b>Phone:</b> {userDetails.phone}
+            </p>
           </div>
           <button onClick={handleEdit}>Edit</button>
         </div>

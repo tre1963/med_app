@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ProfileCard from './ProfileCard/ProfileCard';
+import ProfileCard from './Components/ProfileCard/ProfileCard';
+
 import './Navbar.css';
 
 const Navbar = () => {

@@ -8,7 +8,7 @@ import Login from './Components/Login/Login';
 import BookingConsultation from './Components/BookingConsultation';
 import Notification from './Components/Notification/Notification';
 import ReviewForm from './Components/ReviewForm/ReviewForm';
-
+import ProfileCard from './Components/ProfileCard/ProfileCard';
 function App() {
   return (
     <div className="App">
@@ -23,6 +23,8 @@ function App() {
             <Route path="/booking-consultation" element={<BookingConsultation />} />
         
           <Route path="/Reviews" element={<ReviewForm />} />
+          <Route path="/profile" element={<ProfileCard />} />
+
           </Routes>
         </Notification>
       </BrowserRouter>

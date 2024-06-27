@@ -53,4 +53,13 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .hint {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+    /* Additional styles for tooltip or hover effects */
+  }
   
+  .hint:hover {
+    text-decoration: none; /* Remove underline on hover if desired */
+  }
