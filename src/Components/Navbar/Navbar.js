@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ProfileCard from '../ProfileCard/ProfileCard';
+import ReportsLayout from '../ReportsLayout/ReportsLayout'; // Adjust path if necessary
 
 import './Navbar.css';
 
@@ -30,7 +31,7 @@ const Navbar = () => {
             <div className="nav__icon">
                 <i className="fa fa-times fa fa-bars"></i>
             </div>
-            <ul className="nav__links active">
+            <ul className="nav__links">
                 <li className="link">
                     <Link to="/LandingPage">Home</Link>
                 </li>
@@ -46,20 +47,23 @@ const Navbar = () => {
                 <li className="link">
                     <Link to="/Reviews">Reviews</Link>
                 </li>
-                {userName ? (
-                    <>
-                        <li className="link" onClick={toggleDropdown}>
-                            <span>Welcome, {userName}</span>
-                        </li>
-                        {dropdownOpen && (
-                            <li className="navbar-dropdown">
-                                <ProfileCard />
+                <li className="link welcome-user" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
+                    <span>Welcome, {userName} <i className={`fa ${dropdownOpen ? 'fa-caret-up' : 'fa-caret-down'}`}></i></span>
+                    {dropdownOpen && (
+                        <ul className="navbar-dropdown">
+                            <li>
+                                <Link to="/profile">Your Profile</Link>
                             </li>
-                        )}
-                        <li className="link">
-                            <button className="btn1" onClick={handleLogout}>Logout</button>
-                        </li>
-                    </>
+                            <li>
+                                <Link to="/reports">Your Reports</Link>
+                            </li>
+                        </ul>
+                    )}
+                </li>
+                {userName ? (
+                    <li className="link">
+                        <button className="btn1" onClick={handleLogout}>Logout</button>
+                    </li>
                 ) : (
                     <>
                         <li className="link">
