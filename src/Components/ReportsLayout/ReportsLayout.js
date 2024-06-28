@@ -1,59 +1,69 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ReportsLayout.css';
+import { useNavigate } from 'react-router-dom';
 
 const ReportsLayout = () => {
-  const reportsData = [
-    { id: 1, doctorName: 'Dr. Smith', doctorSpecialty: 'Cardiology' },
-    { id: 2, doctorName: 'Dr. Johnson', doctorSpecialty: 'Pediatrics' },
-    { id: 3, doctorName: 'Dr. Brown', doctorSpecialty: 'Dermatology' },
-    // Add more data as needed
-  ];
+    const navigate = useNavigate();
+    useEffect(() => {
+        const authtoken = sessionStorage.getItem("auth-token");
+        if (!authtoken) {
+            navigate("/login");
+        }
+    }, []);
+    // Sample report data 
+    const reportData = [
+        {
+            serialNumber: 1,
+            doctorName: 'Dr. Jiao Yang',
+            doctorSpeciality: 'Dentist',
+        },
 
-  const handleViewReport = (reportId) => {
-    // Implement logic to view the report with id reportId
-    console.log(`View report with id ${reportId}`);
-  };
+        {
+            serialNumber: 2,
+            doctorName: 'Dr. Denis Raj',
+            doctorSpeciality: 'Dentist',
+        },
 
-  const handleDownloadReport = (reportId) => {
-    // Implement logic to download the report with id reportId
-    console.log(`Download report with id ${reportId}`);
-  };
+        // Add more report data objects as needed 
 
-  return (
-    <div className="reports-layout">
-      <h2>Reports Layout</h2>
-      <table className="reports-table">
-        <thead>
-          <tr>
-            <th>Serial Number</th>
-            <th>Doctor Name</th>
-            <th>Doctor Specialty</th>
-            <th>View Report</th>
-            <th>Download Report</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reportsData.map((report) => (
-            <tr key={report.id}>
-              <td>{report.id}</td>
-              <td>{report.doctorName}</td>
-              <td>{report.doctorSpecialty}</td>
-              <td>
-                <button className="btn-view" onClick={() => handleViewReport(report.id)}>
-                  View Report
-                </button>
-              </td>
-              <td>
-                <button className="btn-download" onClick={() => handleDownloadReport(report.id)}>
-                  Download Report
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    ];
+
+    return (
+        <div className="reports-container">
+            <h1>Reports</h1>
+            <table className="report-table">
+                <thead>
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Doctor Name</th>
+                        <th>Doctor Specialty</th>
+                        <th>View Report</th>
+                        <th>Download Report</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {reportData.map((report, index) => (
+                        <tr key={index}>
+                            <td>{report.serialNumber}</td>
+                            <td>{report.doctorName}</td>
+                            <td>{report.doctorSpeciality}</td>
+                            <td>
+                                <a target='_blank' href='patient_report.pdf' className="report-link" rel="noreferrer">
+                                    View Report
+                                </a>
+                            </td>
+                            <td>
+                                <a target='_blank' href='patient_report.pdf' download className="report-link" rel="noreferrer">
+                                    Download Report
+                                </a>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default ReportsLayout;
