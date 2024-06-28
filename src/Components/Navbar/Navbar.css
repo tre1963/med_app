@@ -104,6 +104,43 @@ nav {
     transform: rotate(180deg);
 }
 
+ .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: none;
+    min-width: 120px;
+    padding: 8px 0;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  
+  .welcome-user {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .welcome-user:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu li {
+    display: block;
+    width: 150px;
+    padding:5px;
+  }
+  
+  .dropdown-menu li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .dropdown-menu li a:hover {
+    color: #2190ff;
+  }
 @media (max-width: 768px) {
     .nav__logo {
         margin-right: auto;
